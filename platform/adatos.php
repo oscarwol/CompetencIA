@@ -2,14 +2,14 @@
 session_start();
 
 $datos_anunciantes = [];
-$datos_marcas =[];
-$datos_categorias =[];
+$datos_marcas = [];
+$datos_categorias = [];
 $datos_productos = [];
-$datos_version =[];
+$datos_version = [];
 $datos_tipodemedio = [];
-$datos_medios =[];
+$datos_medios = [];
 $ultima_act = [];
-$data_totales =[];
+$data_totales = [];
 
 
 function ActualizarDatos($force = false)
@@ -312,12 +312,12 @@ if (isset($_GET['actualizar'])) {
 
                                         <nav>
                                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                <a class="nav-item nav-link small active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Categorias <span class="badge badge-primary"><?php echo $data_totales['categorias'] ?></span></a>
-                                                <a class="nav-item nav-link small" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Anunciantes <span class="badge badge-primary"><?php echo $data_totales['anunciantes'] ?></a>
-                                                <a class="nav-item nav-link small" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Marcas <span class="badge badge-primary"><?php echo $data_totales['marcas'] ?></a>
-                                                <a class="nav-item nav-link small" id="custom-nav-productos-tab" data-toggle="tab" href="#custom-nav-productos" role="tab" aria-controls="custom-nav-productos" aria-selected="false">Productos <span class="badge badge-primary"><?php echo $data_totales['productos'] ?></a>
-                                                <a class="nav-item nav-link small" id="custom-nav-version-tab" data-toggle="tab" href="#custom-nav-version" role="tab" aria-controls="custom-nav-version" aria-selected="false">Version <span class="badge badge-primary"><?php echo $data_totales['version'] ?></a>
-                                                <a class="nav-item nav-link small" id="custom-nav-tmedio-tab" data-toggle="tab" href="#custom-nav-tmedio" role="tab" aria-controls="custom-nav-tmedio" aria-selected="false">Medios <span class="badge badge-primary"><?php echo $data_totales['medios'] ?></a>
+                                                <a class="nav-item nav-link small active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Categorias <span class="badge badge-primary"><?php if (isset($data_totales['categorias'])) echo $data_totales['categorias'] ?></span></a>
+                                                <a class="nav-item nav-link small" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Anunciantes <span class="badge badge-primary"><?php if (isset($data_totales['anunciantes'])) echo $data_totales['anunciantes'] ?></a>
+                                                <a class="nav-item nav-link small" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Marcas <span class="badge badge-primary"><?php if (isset($data_totales['marcas'])) echo $data_totales['marcas'] ?></a>
+                                                <a class="nav-item nav-link small" id="custom-nav-productos-tab" data-toggle="tab" href="#custom-nav-productos" role="tab" aria-controls="custom-nav-productos" aria-selected="false">Productos <span class="badge badge-primary"><?php if (isset($data_totales['productos']))  echo $data_totales['productos'] ?></a>
+                                                <a class="nav-item nav-link small" id="custom-nav-version-tab" data-toggle="tab" href="#custom-nav-version" role="tab" aria-controls="custom-nav-version" aria-selected="false">Version <span class="badge badge-primary"><?php if (isset($data_totales['version'])) echo $data_totales['version'] ?></a>
+                                                <a class="nav-item nav-link small" id="custom-nav-tmedio-tab" data-toggle="tab" href="#custom-nav-tmedio" role="tab" aria-controls="custom-nav-tmedio" aria-selected="false">Medios <span class="badge badge-primary"><?php if (isset($data_totales['medios'])) echo $data_totales['medios'] ?></a>
                                             </div>
                                         </nav>
                                         <div class="tab-content pl-3 pt-2" id="nav-tabContent">
