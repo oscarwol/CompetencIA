@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: ./app
+    expose:
+      - 7000
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+  platform:
+    image: php:apache
+    volumes:
+      - ./platform:/var/www/html
+    ports:
+      - "8080:80"
