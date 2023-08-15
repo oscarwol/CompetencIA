@@ -24,10 +24,9 @@ host = "/backend"
 app = Flask(__name__)
 CORS(app)
 url = "mysql+pymysql://devus:d3vc0mp7.23!@cptwol.clurs6kstakf.us-west-1.rds.amazonaws.com/Pruebas"
-app.config["SQLALCHEMY_DATABASE_URI"] = url
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "DASHAUTO"
-
+app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
