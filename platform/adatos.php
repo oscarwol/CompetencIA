@@ -321,49 +321,17 @@ if (isset($_GET['actualizar'])) {
                                             </div>
                                         </nav>
                                         <div class="tab-content pl-3 pt-2" id="nav-tabContent">
-                                            <div class="tab-pane fade show active" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
-                                                <ul>
-                                                    <?php foreach ($datos_categorias as $opcion) { ?>
-                                                        <ol><?php echo $opcion; ?></ol>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane fade" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
-                                                <ul>
-                                                    <?php foreach ($datos_anunciantes as $opcion) { ?>
-                                                        <ol><?php echo $opcion; ?></ol>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
-                                                <ul>
-                                                    <?php foreach ($datos_marcas as $opcion) { ?>
-                                                        <ol><?php echo $opcion; ?></ol>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane fade" id="custom-nav-productos" role="tabpanel" aria-labelledby="custom-nav-productos-tab">
-                                                <ul>
-                                                    <?php foreach ($datos_productos as $opcion) { ?>
-                                                        <ol><?php echo $opcion; ?></ol>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane fade" id="custom-nav-version" role="tabpanel" aria-labelledby="custom-nav-version-tab">
-                                                <ul>
-                                                    <?php foreach ($datos_version as $opcion) { ?>
-                                                        <ol><?php echo $opcion; ?></ol>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane fade" id="custom-nav-tmedio" role="tabpanel" aria-labelledby="custom-nav-tmedio-tab">
-                                                <ul>
-                                                    <?php foreach ($datos_medios as $opcion) { ?>
-                                                        <ol><?php echo $opcion; ?></ol>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
+                                            <?php foreach ($tab_data as $tab_id => $tab_options) { ?>
+                                                <div class="tab-pane fade<?php if ($tab_id === 'custom-nav-home') echo ' show active'; ?>" id="<?php echo $tab_id; ?>" role="tabpanel" aria-labelledby="<?php echo $tab_id; ?>-tab">
+                                                    <ul>
+                                                        <?php foreach ($tab_options as $option) { ?>
+                                                            <li><?php echo $option; ?></li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                </div>
+                                            <?php } ?>
                                         </div>
+
 
                                     </div>
                                 </div>
