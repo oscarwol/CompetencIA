@@ -313,7 +313,7 @@ def get_etl_diario():
     return "No hay resultados", 404
 
 
-@app.route('/excel', methods=['POST'])
+@app.route(host + '/excel', methods=['POST'])
 def generar_excel():
     data = request.form
     # Obtener los datos del cuerpo del POST
