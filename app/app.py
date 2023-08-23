@@ -271,7 +271,7 @@ def get_medios():
     return "No hay resultados", 404
 
 
-@app.route(host + "/etl", methods=["POST"])
+@app.route(host + "/etl", methods=["GET"])
 def get_etl_diario():
     page = request.args.get("page", default=1, type=int)
     per_page = request.args.get("per_page", default=50, type=int)
@@ -339,11 +339,9 @@ def generar_excel():
     etl_diario_query = ETL_Diario.query
 
     if fecha_inicio:
-        print(fecha_inicio)
         fecha_inicio = datetime.strptime(fecha_inicio, "%Y-%m-%d").date()
         fecha_mes = fecha_inicio.month
         fecha_anio = fecha_inicio.year
-        print(fecha_mes,fecha_anio)
         etl_diario_query = etl_diario_query.filter(
             (ETL_Diario.MES == fecha_mes) &
             (ETL_Diario.ANIO == fecha_anio)
@@ -421,5 +419,5 @@ def generar_excel():
 
 
 if __name__ == "__main__":
-    #app.run(host='0.0.0.0', port=7000)
-    app.run(host='0.0.0.0', debug=True, port=7000)
+    app.run(host='0.0.0.0', port=7000)
+    #app.run(host='0.0.0.0', debug=True, port=7000)
