@@ -354,7 +354,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
         $('#mediumModal').modal('show');
         $('.page-wrapper').addClass('blur-effect');
         $.ajax({
-            url: 'http://http://54.177.207.235/backend/excel',
+            url: 'http://54.177.207.235/backend/excel',
             type: 'POST',
             data: formData,
             contentType: false,
