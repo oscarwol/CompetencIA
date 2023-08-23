@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$datos_clientes = [];
 $datos_anunciantes = [];
 $datos_marcas = [];
 $datos_categorias = [];
@@ -14,6 +15,7 @@ $data_totales = [];
 
 function ActualizarDatos($force = false)
 {
+    global $datos_clientes;
     global $datos_anunciantes;
     global $datos_marcas;
     global $datos_categorias;
@@ -45,7 +47,8 @@ function ActualizarDatos($force = false)
         }
 
 
-        if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_categorias'])) {
+        if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_clientes'])  && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_categorias'])) {
+            $datos_clientes = $_SESSION['datos_clientes'];
             $datos_anunciantes = $_SESSION['datos_anunciantes'];
             $datos_marcas = $_SESSION['datos_marcas'];
             $datos_categorias = $_SESSION['datos_categorias'];
@@ -55,6 +58,7 @@ function ActualizarDatos($force = false)
             $datos_medios = $_SESSION['datos_medios'];
             $ultima_act = $_SESSION['ultima_act'];
         } else {
+            $clientes = "http://app:7000/backend/clientes";
             $anunciante = "http://app:7000/backend/anunciantes";
             $marcas = "http://app:7000/backend/marcas";
             $categos = "http://app:7000/backend/categorias";
@@ -65,6 +69,7 @@ function ActualizarDatos($force = false)
 
 
             // Realizar solicitud GET al endpoint para obtener los datos
+            $response_clientes = file_get_contents($clientes);
             $response_anunciantes = file_get_contents($anunciante);
             $response_marcas = file_get_contents($marcas);
             $response_categos = file_get_contents($categos);
@@ -75,7 +80,8 @@ function ActualizarDatos($force = false)
 
 
             // Verificar si se obtuvo respuesta y decodificar el JSON
-            if ($response_anunciantes && $response_marcas && $response_categos && $response_producto && $response_version && $response_tipodemedio && $response_medios) {
+            if ($response_clientes && $response_anunciantes && $response_marcas && $response_categos && $response_producto && $response_version && $response_tipodemedio && $response_medios) {
+                $datos_clientes = json_decode($response_clientes, true);
                 $datos_anunciantes = json_decode($response_anunciantes, true);
                 $datos_marcas = json_decode($response_marcas, true);
                 $datos_categorias = json_decode($response_categos, true);
@@ -86,6 +92,7 @@ function ActualizarDatos($force = false)
                 $ultima_act = date('Y-m-d H:i:s');
 
                 // Guardar los datos en la sesión
+                $_SESSION['datos_clientes'] = $datos_clientes;
                 $_SESSION['datos_anunciantes'] = $datos_anunciantes;
                 $_SESSION['datos_marcas'] = $datos_marcas;
                 $_SESSION['datos_categorias'] = $datos_categorias;
@@ -95,6 +102,7 @@ function ActualizarDatos($force = false)
                 $_SESSION['datos_medios'] = $datos_medios;
                 $_SESSION['ultima_act'] = $ultima_act;
             } else {
+                $datos_clientes = false;
                 $datos_anunciantes = false;
                 $datos_marcas = false;
                 $datos_categorias = false;
@@ -106,6 +114,7 @@ function ActualizarDatos($force = false)
             }
         }
     } else {
+        $clientes = "http://app:7000/backend/clientes";
         $anunciante = "http://app:7000/backend/anunciantes";
         $marcas = "http://app:7000/backend/marcas";
         $categos = "http://app:7000/backend/categorias";
@@ -116,6 +125,7 @@ function ActualizarDatos($force = false)
 
 
         // Realizar solicitud GET al endpoint para obtener los datos
+        $response_clientes = file_get_contents($clientes);
         $response_anunciantes = file_get_contents($anunciante);
         $response_marcas = file_get_contents($marcas);
         $response_categos = file_get_contents($categos);
@@ -126,7 +136,8 @@ function ActualizarDatos($force = false)
 
 
         // Verificar si se obtuvo respuesta y decodificar el JSON
-        if ($response_anunciantes && $response_marcas && $response_categos && $response_producto && $response_version && $response_tipodemedio && $response_medios) {
+        if ($response_clientes && $response_anunciantes && $response_marcas && $response_categos && $response_producto && $response_version && $response_tipodemedio && $response_medios) {
+            $datos_clientes = json_decode($response_clientes, true);
             $datos_anunciantes = json_decode($response_anunciantes, true);
             $datos_marcas = json_decode($response_marcas, true);
             $datos_categorias = json_decode($response_categos, true);
@@ -137,6 +148,7 @@ function ActualizarDatos($force = false)
             $ultima_act = date('Y-m-d H:i:s');
 
             // Guardar los datos en la sesión
+            $_SESSION['datos_clientes'] = $datos_clientes;
             $_SESSION['datos_anunciantes'] = $datos_anunciantes;
             $_SESSION['datos_marcas'] = $datos_marcas;
             $_SESSION['datos_categorias'] = $datos_categorias;
@@ -146,6 +158,7 @@ function ActualizarDatos($force = false)
             $_SESSION['datos_medios'] = $datos_medios;
             $_SESSION['ultima_act'] = $ultima_act;
         } else {
+            $datos_clientes = false;
             $datos_anunciantes = false;
             $datos_marcas = false;
             $datos_categorias = false;
@@ -312,7 +325,9 @@ if (isset($_GET['actualizar'])) {
 
                                         <nav>
                                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                <a class="nav-item nav-link small active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Categorias <span class="badge badge-primary"><?php if (isset($data_totales['categorias'])) echo $data_totales['categorias'] ?></span></a>
+                                                
+                                                <a class="nav-item nav-link small active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-clientes" role="tab" aria-controls="custom-nav-clientes" aria-selected="true">Clientes <span class="badge badge-primary"><?php if (isset($data_totales['clientes'])) echo $data_totales['clientes'] ?></span></a>
+                                                <a class="nav-item nav-link small" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Categorias <span class="badge badge-primary"><?php if (isset($data_totales['categorias'])) echo $data_totales['categorias'] ?></span></a>
                                                 <a class="nav-item nav-link small" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Anunciantes <span class="badge badge-primary"><?php if (isset($data_totales['anunciantes'])) echo $data_totales['anunciantes'] ?></a>
                                                 <a class="nav-item nav-link small" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Marcas <span class="badge badge-primary"><?php if (isset($data_totales['marcas'])) echo $data_totales['marcas'] ?></a>
                                                 <a class="nav-item nav-link small" id="custom-nav-productos-tab" data-toggle="tab" href="#custom-nav-productos" role="tab" aria-controls="custom-nav-productos" aria-selected="false">Productos <span class="badge badge-primary"><?php if (isset($data_totales['productos']))  echo $data_totales['productos'] ?></a>
@@ -321,7 +336,14 @@ if (isset($_GET['actualizar'])) {
                                             </div>
                                         </nav>
                                         <div class="tab-content pl-3 pt-2" id="nav-tabContent">
-                                            <div class="tab-pane fade show active" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                            <div class="tab-pane fade show active" id="custom-nav-clientes" role="tabpanel" aria-labelledby="custom-nav-clientes-tab">
+                                                <ul>
+                                                    <?php foreach ($datos_clientes as $opcion) { ?>
+                                                        <ol><?php echo $opcion; ?></ol>
+                                                    <?php } ?>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane fade show" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
                                                 <ul>
                                                     <?php foreach ($datos_categorias as $opcion) { ?>
                                                         <ol><?php echo $opcion; ?></ol>

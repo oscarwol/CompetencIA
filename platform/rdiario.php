@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_categorias'])) {
+if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_clientes']) && isset($_SESSION['datos_categorias'])) {
+    $datos_clientes = $_SESSION['datos_clientes'];
     $datos_anunciantes = $_SESSION['datos_anunciantes'];
     $datos_marcas = $_SESSION['datos_marcas'];
     $datos_categorias = $_SESSION['datos_categorias'];
@@ -166,6 +167,20 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                     </div>
                                     <div class="card-body card-block">
                                         <form action="" id="excelForm" method="post" class="form-horizontal">
+                                        <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label for="selectSm" class=" form-control-label">Cliente:</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <select required name="cliente" class="form-control-sm form-control">
+                                                        <option selected value="">Todos los clientes</option>
+                                                        <?php foreach ($datos_clientes as $opcion) { ?>
+                                                            <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+                                                </div>
+                                            </div>
 
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
@@ -265,18 +280,10 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="selectSm" class=" form-control-label">Fecha de Inicio:</label>
+                                                    <label for="selectSm" class=" form-control-label">Mes de reporte:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="date" name="fecha_inicio" id="">
-                                                </div>
-                                            </div>
-                                            <div class="row form-group">
-                                                <div class="col col-md-3">
-                                                    <label for="selectSm" class=" form-control-label">Fecha de Inicio:</label>
-                                                </div>
-                                                <div class="col-12 col-md-9">
-                                                    <input type="date" name="fecha_fin" id="">
+                                                    <input type="date" name="fecha_inicio" id="" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -347,7 +354,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
         $('#mediumModal').modal('show');
         $('.page-wrapper').addClass('blur-effect');
         $.ajax({
-            url: 'http://54.177.207.235/backend/excel',
+            url: 'http://localhost/backend/excel',
             type: 'POST',
             data: formData,
             contentType: false,
