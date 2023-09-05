@@ -42,7 +42,6 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
 
     <!-- Bootstrap CSS-->
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
     <!-- Vendor CSS-->
     <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
     <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
@@ -184,10 +183,27 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
 
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
+                                                    <label for="selectSm" class=" form-control-label">Cliente:</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <select required name="cliente" class="selectpicker" data-live-search="true">
+                                                        <option selected value="">Todos los clientes</option>
+                                                        <?php foreach ($datos_clientes as $opcion) { ?>
+                                                            <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
                                                     <label for="selectSm" class=" form-control-label">Categoria:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="categoria" class="form-control-sm form-control">
+                                                    <select name="categoria"  class="selectpicker" data-live-search="true" >
                                                         <option selected value="">Todas las categorias</option>
                                                         <?php foreach ($datos_categorias as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
@@ -201,7 +217,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Anunciante:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="anunciante" class="form-control-sm form-control">
+                                                    <select name="anunciante" class="selectpicker" data-live-search="true" >
                                                         <option selected value="">Todos los anunciantes</option>
                                                         <?php foreach ($datos_anunciantes as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
@@ -209,12 +225,13 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
                                                     <label for="selectSm" class=" form-control-label">Marca:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="marca" class="form-control-sm form-control">
+                                                    <select name="marca" class="selectpicker" data-live-search="true">
                                                         <option selected value="">Todas las marcas</option>
                                                         <?php foreach ($datos_marcas as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
@@ -227,7 +244,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Producto:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="producto" class="form-control-sm form-control">
+                                                    <select name="producto" class="selectpicker" data-live-search="true">
                                                         <option selected value="">Todos los prodcutos</option>
 
                                                         <?php foreach ($datos_productos as $opcion) { ?>
@@ -236,26 +253,13 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
-                                                <div class="col col-md-3">
-                                                    <label for="selectSm" class=" form-control-label">Versión:</label>
-                                                </div>
-                                                <div class="col-12 col-md-9">
-                                                    <select name="version" class="form-control-sm form-control">
-                                                        <option selected value="">Todas las versiones</option>
 
-                                                        <?php foreach ($datos_version as $opcion) { ?>
-                                                            <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
                                                     <label for="selectSm" class=" form-control-label">Tipo de medio:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="tipodemedio" class="form-control-sm form-control">
+                                                    <select name="tipodemedio" class="selectpicker" data-live-search="true" >
                                                         <option selected value="">Todos los tipos de medios</option>
 
                                                         <?php foreach ($datos_tipodemedio as $opcion) { ?>
@@ -269,7 +273,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Medio:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="medio" class="form-control-sm form-control">
+                                                    <select name="medio" class="selectpicker" data-live-search="true" >
                                                         <option selected value="">Todos los medios</option>
 
                                                         <?php foreach ($datos_medios as $opcion) { ?>
@@ -278,6 +282,11 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     </select>
                                                 </div>
                                             </div>
+
+
+
+
+
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
                                                     <label for="selectSm" class=" form-control-label">Mes de reporte:</label>
@@ -326,13 +335,15 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
     <script src="vendor/animsition/animsition.min.js"></script>
     <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
     </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
     <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js"></script>
+
     </script>
 
     <!-- Main JS-->
@@ -344,6 +355,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
 </body>
 
 <script>
+
     $('#excelForm').on('submit', function(event) {
         event.preventDefault(); // Evitar el envío del formulario normal
         var formData = new FormData(this); // crear un objeto FormData con los datos del formulario
@@ -378,13 +390,13 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                 a.href = url;
                 var today = new Date();
                 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                a.download = filename !== '' ? filename : 'reporte_competencia_'+date+'.xlsx';
+                a.download = filename !== '' ? filename : 'reporte_competencia_' + date + '.xlsx';
                 document.body.append(a);
                 a.click();
                 a.remove();
                 window.URL.revokeObjectURL(url);
 
-                swal.fire("¡Reporte Generado!", "El reporte se generó exitosamente y se descargó como un archivo de Excel (xlsx)<br><br> Nombre:  <strong>"+'reporte_competencia_'+date+'.xlsx</strong>', "success");
+                swal.fire("¡Reporte Generado!", "El reporte se generó exitosamente y se descargó como un archivo de Excel (xlsx)<br><br> Nombre:  <strong>" + 'reporte_competencia_' + date + '.xlsx</strong>', "success");
             },
             error: function(jqXHR, textStatus, errorMessage) {
                 swal.fire("Error al generar reporte", "No se encontraron datos para generar este reporte", "error");

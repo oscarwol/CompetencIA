@@ -27,26 +27,6 @@ function ActualizarDatos($force = false)
     global $data_totales;
 
     if ($force == false) {
-        $endpoint = "http://app:7000/backend/totales"; //
-
-        // Realizar solicitud GET al endpoint
-        if (isset($_COOKIE['totales'])) {
-            $data_totales = json_decode($_COOKIE['totales'], true); // Obtener los datos guardados de la cookie
-        } else {
-            // Realizar solicitud GET al endpoint
-            $response = file_get_contents($endpoint);
-
-            if ($response) {
-                $data_totales = json_decode($response, true); // Convertir la respuesta JSON en un arreglo asociativo
-
-                // Guardar los datos en una cookie válida por 1 día
-                setcookie('totales', json_encode($data_totales), time() + (24 * 60 * 60));
-            } else {
-                $data_totales = false;
-            }
-        }
-
-
         if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_clientes'])  && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_categorias'])) {
             $datos_clientes = $_SESSION['datos_clientes'];
             $datos_anunciantes = $_SESSION['datos_anunciantes'];
