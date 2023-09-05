@@ -1,22 +1,6 @@
 <?php
 $endpoint = "http://app:7000/backend/totales"; //
 
-// Realizar solicitud GET al endpoint
-if (isset($_COOKIE['totales'])) {
-    $data = json_decode($_COOKIE['totales'], true); // Obtener los datos guardados de la cookie
-} else {
-    // Realizar solicitud GET al endpoint
-    $response = file_get_contents($endpoint);
-
-    if ($response) {
-        $data = json_decode($response, true); // Convertir la respuesta JSON en un arreglo asociativo
-
-        // Guardar los datos en una cookie válida por 1 día
-        setcookie('totales', json_encode($data), time() + (24 * 60 * 60));
-    } else {
-        $data = false;
-    }
-}
 
 $top50 = "http://app:7000/backend/etl?page=1&per_page=50"; //
 
@@ -31,8 +15,6 @@ if ($response) {
 
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -167,72 +149,9 @@ if ($response) {
                                 }
                                 ?>
 
-
-                                <hr>
-                                <br>
-                                <div class="overview-wrap">
-                                    <h2 class="title-1">Resumen de datos</h2>
-                                </div>
                             </div>
                         </div>
-                        <?php
 
-                        if ($data) {
-                            echo "                        <div class='row m-t-25'>
-    <div class='col-sm-6 col-lg-3 '>
-        <div class='overview-item overview-item' style='background-color:black'>
-            <div class='overview__inner'>
-                <div class='overview-box clearfix'>
-                    <div class='text'>
-                        <h2>" . $data['marcas'] . "</h2>
-                        <span>Marcas</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class='col-sm-6 col-lg-3'>
-    <div class='overview-item overview-item' style='background-color:black'>
-    <div class='overview__inner'>
-                <div class='overview-box clearfix'>
-                    <div class='text'>
-                        <h2>" . $data['categorias'] . "</h2>
-                        <span>Categorias</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='col-sm-6 col-lg-3'>
-    <div class='overview-item overview-item' style='background-color:black'>
-    <div class='overview__inner'>
-                <div class='overview-box clearfix'>
-                    <div class='text'>
-                        <h2>" . $data['anunciantes'] . "</h2>
-                        <span>Anunciantes</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='col-sm-6 col-lg-3'>
-    <div class='overview-item overview-item' style='background-color:black'>
-    <div class='overview__inner'>
-                <div class='overview-box clearfix'>
-                    <div class='text'>
-                        <h2>" . $data['productos'] . "</h2>
-                        <span>Productos</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>";
-                        } else {
-                            echo "<p>No hay resultados</p>";
-                        }
-                        ?>
                         <hr>
                         <br>
                         <div class="row">
