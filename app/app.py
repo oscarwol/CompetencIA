@@ -23,8 +23,8 @@ CURRENT_PATH = pathlib.Path(__file__).parent.resolve()
 host = "/backend"
 app = Flask(__name__)
 CORS(app)
-url = "mysql+pymysql://devus:d3vc0mp7.23!@cptwol.clurs6kstakf.us-west-1.rds.amazonaws.com/Pruebas"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
+url = "mysql+pymysql://devus:d3vc0mp7.23!@cptwol.clurs6kstakf.us-west-1.rds.amazonaws.com/COMPETENCIA"
+app.config["SQLALCHEMY_DATABASE_URI"] = url     #os.environ.get('DATABASE_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 
@@ -130,12 +130,6 @@ class ETL_Diario_Schema(ma.Schema):
 
 etl_scehma = ETL_Diario_Schema()
 etl_scehmas = ETL_Diario_Schema(many=True)
-
-
-"""
-Funciones de Usuarios (Login, register)
-"""
-
 
 @app.route(host + "/totales", methods=["GET"])
 def get_totales():
@@ -327,6 +321,7 @@ def get_etl_diario():
 def generar_excel():
     data = request.form
     # Obtener los datos del cuerpo del POST
+    cliente = data.get("cliente", "")
     categoria = data.get("categoria", "")
     anunciante = data.get("anunciante", "")
     marca = data.get("marca", "")
@@ -346,6 +341,11 @@ def generar_excel():
             (ETL_Diario.MES == fecha_mes) &
             (ETL_Diario.ANIO == fecha_anio)
         )
+
+        
+    if cliente:
+        etl_diario_query = etl_diario_query.filter(
+            ETL_Diario.CLIENTE == cliente)        
 
     if categoria:
         etl_diario_query = etl_diario_query.filter(
@@ -421,3 +421,4 @@ def generar_excel():
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=7000)
     #app.run(host='0.0.0.0', debug=True, port=7000)
+
