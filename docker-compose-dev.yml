@@ -3,7 +3,7 @@ services:
     build:
       context: ./app
     environment:
-      - DATABASE_URL=mysql+pymysql://devus:d3vc0mp7.23!@cptwol.clurs6kstakf.us-west-1.rds.amazonaws.com/Pruebas
+      - DATABASE_URL=mysql+pymysql://devuser:D3v_u53r#@54.176.167.84/COMPETENCIA
       - SECRET_KEY=DASHAUTO
     expose:
       - 7000
