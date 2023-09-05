@@ -138,9 +138,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                 </nav>
             </div>
         </aside>
-        <!-- END MENU SIDEBAR-->
 
-        <!-- PAGE CONTAINER-->
         <div class="page-container">
             <!-- HEADER DESKTOP-->
             <div class="main-content">
@@ -189,7 +187,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Categoria:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="categoria"  class="selectpicker" data-live-search="true" >
+                                                    <select name="categoria" class="selectpicker" data-live-search="true">
                                                         <option selected value="">Todas las categorias</option>
                                                         <?php foreach ($datos_categorias as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
@@ -203,7 +201,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Anunciante:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="anunciante" class="selectpicker" data-live-search="true" >
+                                                    <select name="anunciante" class="selectpicker" data-live-search="true">
                                                         <option selected value="">Todos los anunciantes</option>
                                                         <?php foreach ($datos_anunciantes as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
@@ -245,7 +243,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Tipo de medio:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="tipodemedio" class="selectpicker" data-live-search="true" >
+                                                    <select name="tipodemedio" class="selectpicker" data-live-search="true">
                                                         <option selected value="">Todos los tipos de medios</option>
 
                                                         <?php foreach ($datos_tipodemedio as $opcion) { ?>
@@ -259,7 +257,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Medio:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="medio" class="selectpicker" data-live-search="true" >
+                                                    <select name="medio" class="selectpicker" data-live-search="true">
                                                         <option selected value="">Todos los medios</option>
 
                                                         <?php foreach ($datos_medios as $opcion) { ?>
@@ -341,7 +339,6 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
 </body>
 
 <script>
-
     $('#excelForm').on('submit', function(event) {
         event.preventDefault(); // Evitar el envío del formulario normal
         var formData = new FormData(this); // crear un objeto FormData con los datos del formulario
