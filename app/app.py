@@ -131,8 +131,6 @@ class ETL_Diario_Schema(ma.Schema):
 etl_scehma = ETL_Diario_Schema()
 etl_scehmas = ETL_Diario_Schema(many=True)
 
-
-
 @app.route(host + "/totales", methods=["GET"])
 def get_totales():
     query_columns = [
@@ -343,6 +341,7 @@ def generar_excel():
             (ETL_Diario.MES == fecha_mes) &
             (ETL_Diario.ANIO == fecha_anio)
         )
+
         
     if cliente:
         etl_diario_query = etl_diario_query.filter(
@@ -420,5 +419,6 @@ def generar_excel():
 
 
 if __name__ == "__main__":
-    #app.run(host='0.0.0.0', port=7000)
-    app.run(host='0.0.0.0', debug=True, port=7000)
+    app.run(host='0.0.0.0', port=7000)
+    #app.run(host='0.0.0.0', debug=True, port=7000)
+

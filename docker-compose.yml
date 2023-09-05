@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: ./app
+    environment:
+      - DATABASE_URL=mysql+pymysql://devus:d3vc0mp7.23!@cptwol.clurs6kstakf.us-west-1.rds.amazonaws.com/Pruebas
+      - SECRET_KEY=DASHAUTO
+    expose:
+      - 7000
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+  platform:
+    image: php:apache
+    volumes:
+      - ./platform:/var/www/html
+    ports:
+      - "8080:80"
