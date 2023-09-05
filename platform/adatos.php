@@ -27,6 +27,7 @@ function ActualizarDatos($force = false)
     global $data_totales;
 
     if ($force == false) {
+
         if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_clientes'])  && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_categorias'])) {
             $datos_clientes = $_SESSION['datos_clientes'];
             $datos_anunciantes = $_SESSION['datos_anunciantes'];
