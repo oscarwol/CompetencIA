@@ -331,17 +331,15 @@ def generar_excel():
     version = data.get("version", "")
     tipomedio = data.get("tipodemedio", "")
     medio = data.get("medio", "")
-    fecha_inicio = data.get("fecha_inicio", "")
+    fecha_inicio_mes = data.get("fecha_inicio_mes", "")
+    fecha_inicio_anio = data.get("fecha_inicio_anio", "")
 
     etl_diario_query = ETL_Diario.query
 
-    if fecha_inicio:
-        fecha_inicio = datetime.strptime(fecha_inicio, "%Y-%m-%d").date()
-        fecha_mes = fecha_inicio.month
-        fecha_anio = fecha_inicio.year
+    if fecha_inicio_mes and fecha_inicio_anio:
         etl_diario_query = etl_diario_query.filter(
-            (ETL_Diario.MES == fecha_mes) &
-            (ETL_Diario.ANIO == fecha_anio)
+            (ETL_Diario.MES == fecha_inicio_mes) &
+            (ETL_Diario.ANIO == fecha_inicio_anio)
         )
         
     if cliente:

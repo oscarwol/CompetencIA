@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if  (! isset($_SESSION['user_email'])) {
+    header("Location: login.php");
+    die();
+}
+
+
 $datos_clientes = [];
 $datos_anunciantes = [];
 $datos_marcas = [];
@@ -228,7 +234,7 @@ if (isset($_GET['actualizar'])) {
                         </li>
                         <li>
                             <a href="table.html">
-                                <i class="fas fa-table"></i>Reporte Diario</a>
+                                <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
                     </ul>
                 </div>
@@ -253,14 +259,14 @@ if (isset($_GET['actualizar'])) {
                         </li>
                         <li>
                             <a href="/rdiario.php">
-                                <i class="fas fa-table"></i>Reporte Diario</a>
+                                <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
                         <li class="active">
                             <a href="/adatos.php">
                                 <i class="fas fa-refresh"></i>Actualizar Datos</a>
                         </li>
                         <li>
-                            <a href="/login.php">
+                            <a href="/login.php?user_email_logout">
                                 <i class="fas fa-power-off"></i>Cerrar Sesión</a>
                         </li>
 

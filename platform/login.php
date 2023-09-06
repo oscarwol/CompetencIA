@@ -1,3 +1,20 @@
+<?php
+session_start();
+if (isset($_GET["user_email_logout"])) {
+    if (isset($_SESSION['user_email'])) {
+        unset($_SESSION['user_email']);
+    }
+}
+
+if  (isset($_SESSION['user_email'])) {
+    header("Location: index.php");
+    die();
+  }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,19 +30,12 @@
     <link href="css/font-face.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-    <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css " rel="stylesheet">
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
@@ -49,18 +59,16 @@
                             </div>
 
                             <br>
-                            <form action="" method="post">
+                            <form id="form">
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <input class="au-input au-input--full" type="text" name="user_email" required placeholder="Email">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                    <input class="au-input au-input--full" type="password" name="user_pass" required placeholder="Password">
                                 </div>
-                                <a href="/index.php" style="display: block; ">
-                                    <input class="au-btn au-btn--block au-btn--blue m-b-20" value="Ingresar" style="background-color: black;text-align: center;">
-                                </a>
+                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" style="background-color: black;text-align: center;">Ingresar</button>
                                 <div class="social-login-content">
                                     <div class="social-button">
                                         <button class="au-btn au-btn--block au-btn--blue m-b-20">Ingresar con tu cuenta de Grupo WOL</button>
@@ -84,21 +92,38 @@
     <!-- Vendor JS       -->
     <script src="vendor/slick/slick.min.js">
     </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
+
+    <script>
+        $("#form").on("submit", function(e) {
+            e.preventDefault();
+            var response = '';
+            const form = $(e.target);
+            $.ajax({
+                type: 'POST',
+                url: 'model.php',
+                data: $('form').serialize(),
+                success: function(data) {
+                    swal.fire("¡Iniciando sesión!", "Estamos iniciando sesión en la plataforma", "success");
+
+                    window.location.replace("index.php");
+                },
+
+                error: function() {
+                    Swal.fire(
+                        'Error',
+                        'Los datos ingresados no son válidos, intenta nuevamente.',
+                        'error',
+                    )
+                }
+            });
+
+
+        });
+    </script>
+
 
 </body>
 

@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if  (! isset($_SESSION['user_email'])) {
+    header("Location: login.php");
+    die();
+  }
+
 if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset($_SESSION['datos_clientes']) && isset($_SESSION['datos_categorias'])) {
     $datos_clientes = $_SESSION['datos_clientes'];
     $datos_anunciantes = $_SESSION['datos_anunciantes'];
@@ -32,7 +37,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
     <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css " rel="stylesheet">
     <!-- Title Page-->
-    <title>Generar Reporte Diario - CompetencIA</title>
+    <title>Generar Reporte Mensual - CompetencIA</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -98,7 +103,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                         </li>
                         <li>
                             <a href="table.html">
-                                <i class="fas fa-table"></i>Reporte Diario</a>
+                                <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
                     </ul>
                 </div>
@@ -123,14 +128,14 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                         </li>
                         <li class="active">
                             <a href="">
-                                <i class="fas fa-table"></i>Reporte Diario</a>
+                                <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
                         <li>
                             <a href="/adatos.php">
                                 <i class="fas fa-refresh"></i>Actualizar Datos</a>
                         </li>
                         <li>
-                            <a href="/login.php">
+                            <a href="/login.php?user_email_logout">
                                 <i class="fas fa-power-off"></i>Cerrar Sesión</a>
                         </li>
 
@@ -184,11 +189,11 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
 
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="selectSm" class=" form-control-label">Categoria:</label>
+                                                    <label for="selectSm" class=" form-control-label">Categoría:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <select name="categoria" class="selectpicker" data-live-search="true">
-                                                        <option selected value="">Todas las categorias</option>
+                                                        <option selected value="">Todas las Categorías</option>
                                                         <?php foreach ($datos_categorias as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
                                                         <?php } ?>
@@ -229,7 +234,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <select name="producto" class="selectpicker" data-live-search="true">
-                                                        <option selected value="">Todos los prodcutos</option>
+                                                        <option selected value="">Todos los Productos</option>
 
                                                         <?php foreach ($datos_productos as $opcion) { ?>
                                                             <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
@@ -276,16 +281,48 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Mes de reporte:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="date" name="fecha_inicio" id="" required>
+                                                    <select name="fecha_inicio_mes" class="selectpicker" required>
+                                                        <option selected value="">Todos los meses</option>
+                                                        <option value="1">Enero</option>
+                                                        <option value="2">Febrero</option>
+                                                        <option value="3">Marzo</option>
+                                                        <option value="4">Abril</option>
+                                                        <option value="5">Mayo</option>
+                                                        <option value="6">Junio</option>
+                                                        <option value="7">Julio</option>
+                                                        <option value="8">Agosto</option>
+                                                        <option value="9">Septiembre</option>
+                                                        <option value="10">Octubre</option>
+                                                        <option value="11">Noviembre</option>
+                                                        <option value="12">Diciembre</option>
+                                                    </select>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label for="selectSm" class=" form-control-label">Año de reporte:</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <select name="fecha_inicio_anio" class="selectpicker" required>
+                                                        <option selected value="">Todos los años</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2020">2020</option>
+                                                        <option value="2021">2021</option>
+                                                        <option value="2022">2022</option>
+                                                        <option value="2023">2023</option>
+                                                    </select>
+
+                                                    </select>
                                                 </div>
                                             </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary btn-lg">
+                                        <button type="submit" class="btn btn-dark btn-lg">
                                             <i class="fa fa-dot-circle-o"></i> Generar Reporte
-                                        </button>
-                                        <button type="reset" class="btn btn-danger btn-lg">
-                                            <i class="fa fa-ban"></i> Resetear Formulario
                                         </button>
                                     </div>
                                     </form>
@@ -349,6 +386,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
         $('#mediumModal').modal('show');
         $('.page-wrapper').addClass('blur-effect');
         $.ajax({
+            //dev: url: 'http://localhost/backend/excel',
             url: 'http://54.177.207.235/backend/excel',
             type: 'POST',
             data: formData,
