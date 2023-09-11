@@ -24,7 +24,7 @@ host = "/backend"
 app = Flask(__name__)
 CORS(app)
 url = "mysql+pymysql://devus:d3vc0mp7.23!@cptwol.clurs6kstakf.us-west-1.rds.amazonaws.com/COMPETENCIA"
-app.config["SQLALCHEMY_DATABASE_URI"] = url     #os.environ.get('DATABASE_URL')
+app.config["SQLALCHEMY_DATABASE_URI"] = url  # os.environ.get('DATABASE_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 
@@ -132,7 +132,6 @@ etl_scehma = ETL_Diario_Schema()
 etl_scehmas = ETL_Diario_Schema(many=True)
 
 
-
 @app.route(host + "/totales", methods=["GET"])
 def get_totales():
     query_columns = [
@@ -166,7 +165,7 @@ def get_totales():
 
 @app.route(host + "/", methods=["GET"])
 def get_index():
-        return jsonify("Sistema funcionando correctamente en el puerto 7000"), 200
+    return jsonify("Sistema funcionando correctamente en el puerto 7000"), 200
 
 
 @app.route(host + "/categorias", methods=["GET"])
@@ -333,10 +332,23 @@ def generar_excel():
     medio = data.get("medio", "")
     fecha_inicio_mes = data.get("fecha_inicio_mes", "")
     fecha_inicio_anio = data.get("fecha_inicio_anio", "")
-
+    fecha_inicio_q = data.get("fecha_inicio_q", "")
+    print(fecha_inicio_q)
+    
     etl_diario_query = ETL_Diario.query
-
-    if fecha_inicio_mes and fecha_inicio_anio:
+    if fecha_inicio_q and fecha_inicio_anio:
+        if fecha_inicio_q == "1":
+            meses_validos = [1, 2, 3, 4]
+        elif fecha_inicio_q == "2":
+            meses_validos = [5, 6, 7, 8]
+        elif fecha_inicio_q == "3":
+            meses_validos = [9, 10, 11, 12]
+        etl_diario_query = etl_diario_query.filter(
+            (ETL_Diario.MES.in_(meses_validos)) &
+            (ETL_Diario.ANIO == fecha_inicio_anio)
+        )
+        
+    elif fecha_inicio_mes and fecha_inicio_anio:
         etl_diario_query = etl_diario_query.filter(
             (ETL_Diario.MES == fecha_inicio_mes) &
             (ETL_Diario.ANIO == fecha_inicio_anio)
@@ -344,7 +356,7 @@ def generar_excel():
         
     if cliente:
         etl_diario_query = etl_diario_query.filter(
-            ETL_Diario.CLIENTE == cliente)        
+            ETL_Diario.CLIENTE == cliente)
 
     if categoria:
         etl_diario_query = etl_diario_query.filter(
@@ -374,20 +386,18 @@ def generar_excel():
 
     results = etl_diario_query.all()  # Obtener todos los resultados
 
-
-
     if results:
         headers = ['ADSERVER', 'AGENCIA', 'ALTO', 'ANCHO', 'ANIO', 'ANUNCIANTE', 'AREA', 'AVISO', 'CAMPANIA', 'CATEGORIA',
-        'CLIENTE', 'DateInsert', 'DISPOSITIVO', 'DURACION', 'FECHA', 'FRANJA', 'GENERO', 'GRUPO_DE_MEDIOS', 'HORA',
-        'iddata_cpt', 'IMPRESIONES', 'INVERSION_DOLARES', 'INVERSION_LOCAL', 'LINK', 'MARCA', 'MEDIO', 'MES', 'PAIS',
-        'PRODUCTO', 'PROGRAMA', 'SECTOR', 'SPOTS', 'SUBTIPO_DE_MEDIO', 'TIPO', 'TIPO_MEDIO', 'TIPO_REPORTE', 'Total_AMAS', 'VERSION',
-        'Total_H18a60', 'Total_H18a60Al_Me', 'Total_H18a99Al_Me', 'Total_H25a39', 'Total_H25a60', 'Total_H25a60Al_Me',
-        'Total_H25a60Baja', 'Total_H40a60', 'Total_HyM12a24Al_Me', 'Total_HyM12a60', 'Total_HyM12a99', 'Total_HyM18a39',
-        'Total_HyM18a39Al_Me', 'Total_HyM18a39Baja', 'Total_HyM18a60', 'Total_HyM18a60Al_Me', 'Total_HyM18a60Baja',
-        'Total_HyM18a99', 'Total_HyM25a39', 'Total_HyM25a39Al_Me', 'Total_HyM25a39Baja', 'Total_HyM25a60',
-        'Total_HyM25a60Al_Me', 'Total_HyM25a99', 'Total_HyM25a99Al_Me', 'Total_HyM25a99Baja', 'Total_HyM3a99Total',
-        'Total_HyM40a60Al_Me', 'Total_M18a39', 'Total_M18a39Al_Me', 'Total_M18a39Baja', 'Total_M18a60', 'Total_M18a60Baja',
-        'Total_M25a39', 'Total_M25a60', 'Total_M25a60Baja']
+                   'CLIENTE', 'DateInsert', 'DISPOSITIVO', 'DURACION', 'FECHA', 'FRANJA', 'GENERO', 'GRUPO_DE_MEDIOS', 'HORA',
+                   'iddata_cpt', 'IMPRESIONES', 'INVERSION_DOLARES', 'INVERSION_LOCAL', 'LINK', 'MARCA', 'MEDIO', 'MES', 'PAIS',
+                   'PRODUCTO', 'PROGRAMA', 'SECTOR', 'SPOTS', 'SUBTIPO_DE_MEDIO', 'TIPO', 'TIPO_MEDIO', 'TIPO_REPORTE', 'Total_AMAS', 'VERSION',
+                   'Total_H18a60', 'Total_H18a60Al_Me', 'Total_H18a99Al_Me', 'Total_H25a39', 'Total_H25a60', 'Total_H25a60Al_Me',
+                   'Total_H25a60Baja', 'Total_H40a60', 'Total_HyM12a24Al_Me', 'Total_HyM12a60', 'Total_HyM12a99', 'Total_HyM18a39',
+                   'Total_HyM18a39Al_Me', 'Total_HyM18a39Baja', 'Total_HyM18a60', 'Total_HyM18a60Al_Me', 'Total_HyM18a60Baja',
+                   'Total_HyM18a99', 'Total_HyM25a39', 'Total_HyM25a39Al_Me', 'Total_HyM25a39Baja', 'Total_HyM25a60',
+                   'Total_HyM25a60Al_Me', 'Total_HyM25a99', 'Total_HyM25a99Al_Me', 'Total_HyM25a99Baja', 'Total_HyM3a99Total',
+                   'Total_HyM40a60Al_Me', 'Total_M18a39', 'Total_M18a39Al_Me', 'Total_M18a39Baja', 'Total_M18a60', 'Total_M18a60Baja',
+                   'Total_M25a39', 'Total_M25a60', 'Total_M25a60Baja']
 
         excel_data = BytesIO()
         wb = xlsxwriter.Workbook(excel_data, {'in_memory': True})
@@ -418,5 +428,5 @@ def generar_excel():
 
 
 if __name__ == "__main__":
-    #app.run(host='0.0.0.0', port=7000)
+    # app.run(host='0.0.0.0', port=7000)
     app.run(host='0.0.0.0', debug=True, port=7000)

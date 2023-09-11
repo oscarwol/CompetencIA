@@ -90,24 +90,6 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                     </div>
                 </div>
             </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="/">
-                                <i class="fas fa-tachometer-alt"></i>Inicio</a>
-                        </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Gráficas & Estadisticas</a>
-                        </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Reporte Mensual</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
         </header>
         <!-- END HEADER MOBILE-->
 
@@ -126,12 +108,12 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                 <i class="fas fa-tachometer-alt"></i>Inicio</a>
 
                         </li>
-                        <li class="active">
-                            <a href="">
+                        <li class="">
+                            <a href="/rdiario.php">
                                 <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
-                        <li class="">
-                            <a href="/quarter.php">
+                        <li class="active">
+                            <a href="">
                                 <i class="fas fa-table"></i>Reporte Cuatrimestral</a>
                         </li>
                         <li>
@@ -285,20 +267,11 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Mes de reporte:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="fecha_inicio_mes" class="selectpicker" required>
-                                                        <option selected value="">Todos los meses</option>
-                                                        <option value="1">Enero</option>
-                                                        <option value="2">Febrero</option>
-                                                        <option value="3">Marzo</option>
-                                                        <option value="4">Abril</option>
-                                                        <option value="5">Mayo</option>
-                                                        <option value="6">Junio</option>
-                                                        <option value="7">Julio</option>
-                                                        <option value="8">Agosto</option>
-                                                        <option value="9">Septiembre</option>
-                                                        <option value="10">Octubre</option>
-                                                        <option value="11">Noviembre</option>
-                                                        <option value="12">Diciembre</option>
+                                                    <select name="fecha_inicio_q" class="selectpicker" required>
+                                                        <option selected value="">Todos los Quarters (4 meses):</option>
+                                                        <option value="1">Q1</option>
+                                                        <option value="2">Q2</option>
+                                                        <option value="3">Q3</option>
                                                     </select>
 
                                                     </select>

@@ -117,10 +117,15 @@ if ($response) {
                             <a href="/rdiario.php">
                                 <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
+                        <li class="">
+                            <a href="/quarter.php">
+                                <i class="fas fa-table"></i>Reporte Cuatrimestral</a>
+                        </li>
                         <li>
                             <a href="/adatos.php">
                                 <i class="fas fa-refresh"></i>Actualizar Datos</a>
                         </li>
+                        
                         <li>
                             <a href="/login.php?user_email_logout">
                                 <i class="fas fa-power-off"></i>Cerrar Sesión</a>
