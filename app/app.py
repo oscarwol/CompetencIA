@@ -333,9 +333,10 @@ def generar_excel():
     fecha_inicio_mes = data.get("fecha_inicio_mes", "")
     fecha_inicio_anio = data.get("fecha_inicio_anio", "")
     fecha_inicio_q = data.get("fecha_inicio_q", "")
-    print(fecha_inicio_q)
-    
+    fecha_inicio_semestral = data.get("fecha_inicio_semestral", "")
+
     etl_diario_query = ETL_Diario.query
+    
     if fecha_inicio_q and fecha_inicio_anio:
         if fecha_inicio_q == "1":
             meses_validos = [1, 2, 3, 4]
@@ -347,13 +348,25 @@ def generar_excel():
             (ETL_Diario.MES.in_(meses_validos)) &
             (ETL_Diario.ANIO == fecha_inicio_anio)
         )
-        
+
+    elif fecha_inicio_semestral and fecha_inicio_anio:
+
+        if fecha_inicio_semestral == "1":
+            meses_validos = [1, 2, 3, 4, 5, 6]
+        elif fecha_inicio_semestral == "2":
+            meses_validos = [7, 8, 9, 10, 11, 12]
+        print(meses_validos)
+        etl_diario_query = etl_diario_query.filter(
+            (ETL_Diario.MES.in_(meses_validos)) &
+            (ETL_Diario.ANIO == fecha_inicio_anio)
+        )
+
     elif fecha_inicio_mes and fecha_inicio_anio:
         etl_diario_query = etl_diario_query.filter(
             (ETL_Diario.MES == fecha_inicio_mes) &
             (ETL_Diario.ANIO == fecha_inicio_anio)
         )
-        
+
     if cliente:
         etl_diario_query = etl_diario_query.filter(
             ETL_Diario.CLIENTE == cliente)
@@ -400,7 +413,8 @@ def generar_excel():
                    'Total_M25a39', 'Total_M25a60', 'Total_M25a60Baja']
 
         excel_data = BytesIO()
-        wb = xlsxwriter.Workbook(excel_data, {'in_memory': True})
+        wb = xlsxwriter.Workbook(
+            excel_data, {'in_memory': True, 'strings_to_urls': False})
         ws = wb.add_worksheet()
 
         # Agregar encabezados

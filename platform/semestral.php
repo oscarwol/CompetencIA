@@ -37,7 +37,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
     <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css " rel="stylesheet">
     <!-- Title Page-->
-    <title>Generar Reporte Mensual - CompetencIA</title>
+    <title>Generar Reporte Semestral - CompetencIA</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -112,12 +112,12 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                             <a href="/rdiario.php">
                                 <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
-                        <li class="active">
-                            <a href="">
+                        <li class="">
+                            <a href="/quarter.php">
                                 <i class="fas fa-table"></i>Reporte Cuatrimestral</a>
                         </li>
-                        <li class="">
-                            <a href="/semestral.php">
+                        <li class="active">
+                            <a href="">
                                 <i class="fas fa-table"></i>Reporte Semestral</a>
                         </li>
                         <li>
@@ -271,14 +271,13 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                     <label for="selectSm" class=" form-control-label">Mes de reporte:</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <select name="fecha_inicio_q" class="selectpicker" required>
-                                                        <option selected value="">Todos los Quarters (4 meses):</option>
-                                                        <option value="1">Q1</option>
-                                                        <option value="2">Q2</option>
-                                                        <option value="3">Q3</option>
+                                                    <select name="fecha_inicio_semestral" class="selectpicker" required>
+                                                        <option selected value="">Todos los Semestres (6 meses):</option>
+                                                        <option value="1">Semestre 1</option>
+                                                        <option value="2">Semestre 2</option>
+                                                    </select>
                                                     </select>
 
-                                                    </select>
                                                 </div>
                                             </div>
 
@@ -296,8 +295,9 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                                                         <option value="2022">2022</option>
                                                         <option value="2023">2023</option>
                                                     </select>
-
                                                     </select>
+
+                                                
                                                 </div>
                                             </div>
                                     </div>
@@ -368,9 +368,9 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
         $('.page-wrapper').addClass('blur-effect');
         $.ajax({
             //dev: 
-            //url: 'http://localhost/backend/excel',
+            url: 'http://localhost/backend/excel',
             
-            url: 'http://54.177.207.235/backend/excel',
+            //url: 'http://54.177.207.235/backend/excel',
             type: 'POST',
             data: formData,
             contentType: false,
