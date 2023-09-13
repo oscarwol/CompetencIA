@@ -130,14 +130,6 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
                             <a href="">
                                 <i class="fas fa-table"></i>Reporte Mensual</a>
                         </li>
-                        <li class="">
-                            <a href="/quarter.php">
-                                <i class="fas fa-table"></i>Reporte Cuatrimestral</a>
-                        </li>
-                        <li class="">
-                            <a href="/semestral.php">
-                                <i class="fas fa-table"></i>Reporte Semestral</a>
-                        </li>
                         <li>
                             <a href="/adatos.php">
                                 <i class="fas fa-refresh"></i>Actualizar Datos</a>
