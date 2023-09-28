@@ -370,7 +370,7 @@ if (isset($_SESSION['ultima_act']) && isset($_SESSION['datos_marcas']) && isset(
             //dev: 
             //url: 'http://localhost/backend/excel',
             
-            url: 'http://54.177.207.235/backend/excel',
+            url: 'https://cia.informesgrupowol.com/backend/excel',
             type: 'POST',
             data: formData,
             contentType: false,
