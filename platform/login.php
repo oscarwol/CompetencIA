@@ -101,17 +101,26 @@ if  (isset($_SESSION['user_email'])) {
             e.preventDefault();
             var response = '';
             const form = $(e.target);
+            Swal.fire({
+            title: "Cargando",
+            html: "Espere un momento...",
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+            })
             $.ajax({
                 type: 'POST',
                 url: 'model.php',
                 data: $('form').serialize(),
                 success: function(data) {
+                    Swal.close();
                     swal.fire("¡Iniciando sesión!", "Estamos iniciando sesión en la plataforma", "success");
 
                     window.location.replace("index.php");
                 },
 
                 error: function() {
+                    Swal.close();
                     Swal.fire(
                         'Error',
                         'Los datos ingresados no son válidos, intenta nuevamente.',
