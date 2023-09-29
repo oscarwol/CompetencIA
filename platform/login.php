@@ -103,8 +103,9 @@ if (isset($_SESSION['user_email'])) {
             const form = $(e.target);
             Swal.fire({
                 title: "Cargando",
-                html: "Espere un momento...",
+                html: "Cargando datos, espere un momento...",
                 allowOutsideClick: false,
+                showConfirmButton: false, // Oculta el botón "OK"
                 onBeforeOpen: () => {
                     Swal.showLoading();
                 }
