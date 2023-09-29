@@ -6,10 +6,10 @@ if (isset($_GET["user_email_logout"])) {
     }
 }
 
-if  (isset($_SESSION['user_email'])) {
+if (isset($_SESSION['user_email'])) {
     header("Location: index.php");
     die();
-  }
+}
 
 
 
@@ -68,7 +68,7 @@ if  (isset($_SESSION['user_email'])) {
                                     <label>Password</label>
                                     <input class="au-input au-input--full" type="password" name="user_pass" required placeholder="Password">
                                 </div>
-                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" style="background-color: black;text-align: center;">Ingresar</button>
+                                <button class="au-btn au-btn--block au-btn--blue m-b-20" style="background-color: black;text-align: center;">Ingresar</button>
                                 <div class="social-login-content">
                                     <div class="social-button">
                                         <button class="au-btn au-btn--block au-btn--blue m-b-20">Ingresar con tu cuenta de Grupo WOL</button>
@@ -102,12 +102,13 @@ if  (isset($_SESSION['user_email'])) {
             var response = '';
             const form = $(e.target);
             Swal.fire({
-            title: "Cargando",
-            html: "Espere un momento...",
-            allowOutsideClick: false,
-            onBeforeOpen: () => {
-                Swal.showLoading();
-            })
+                title: "Cargando",
+                html: "Espere un momento...",
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             $.ajax({
                 type: 'POST',
                 url: 'model.php',
